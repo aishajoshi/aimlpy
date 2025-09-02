@@ -1,37 +1,25 @@
 """
 -- Created by: Ashok Kumar Pant
 -- Email: asokpant@gmail.com
--- Created on: 29/11/2024
+-- Created on: 04/05/2025
 """
-from datetime import datetime
-
 from fastapi import APIRouter
-from fastapi.responses import JSONResponse
+from aimlpy.entity.common import BaseResponse
 
-router = APIRouter(tags=["Health"])
+router = APIRouter(prefix="/health", tags=["health"])
 
 
-@router.get("/hc", status_code=200)
+@router.get("", response_model=BaseResponse)
 async def health_check():
     """
-    Simple health check endpoint
-    Returns current server status and timestamp
+    Health check endpoint
     """
-    return JSONResponse(content={
-        "status": "OK",
-        "timestamp": datetime.now().isoformat(),
-        "version": "1.0.0"
-    })
+    return BaseResponse(message="Service is healthy")
 
 
-@router.get("/", status_code=200)
-async def health_check():
+@router.get("/ready", response_model=BaseResponse)
+async def readiness_check():
     """
-    Simple health check endpoint
-    Returns current server status and timestamp
+    Readiness check endpoint
     """
-    return JSONResponse(content={
-        "status": "OK",
-        "timestamp": datetime.now().isoformat(),
-        "version": "1.0.0"
-    })
+    return BaseResponse(message="Service is ready")

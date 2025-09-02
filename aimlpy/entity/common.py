@@ -4,8 +4,8 @@
 -- Created on: 04/05/2025
 """
 from enum import Enum
-
-from pydantic import BaseModel
+from typing import Optional
+from pydantic import BaseModel, Field
 
 
 class ErrorCode(Enum):
